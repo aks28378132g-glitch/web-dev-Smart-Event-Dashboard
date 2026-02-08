@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Smart Event Dashboard</h1>
+    <div id="main-event-add-container">
+        <h3>Add New Event</h3>
+        <form>
+            <label for="Event-title">Event Title:</label>
+            <input type="text" id="Event-title" name="Event-title" required><br><br>
+            <label for="Event-date">Event Date:</label>
+            <input type="date" id="Event-date" name="Event-date" required><br><br>
+            <label for="event-categories">Categories:</label>
+            <select id="event-categories" name="event-categories">
+                <option value="Conference">Conference</option>
+                <option value="Workshop">Workshop</option>
+                <option value="Seminar">webinar</option>
+                <option value="Meetup">Meetup</option>
+                <option value="social">Social</option>
+            </select><br><br>
+            <label for="event-description">Event Description:</label><br>
+            <textarea id="event-description" name="event-description" rows="4" cols="50"></textarea><br><br>
+            <button type="submit">Add Event</button>    
+        </form>
+    </div>
+    <div>
+        <h3>My Events </h3>
+        <div>
+            <button id="clear-event-btn">Clear All Events</button>
+            <button id="add-simple-btn">Add Simple Events</button>
+        </div>
+        <div id="all-events-container">
+            No Event Yet
+        </div>
+
+    </div>
+    <script>
+    let form = document.querySelector("form");
+    let title = document.getElementById("Event-title");
+    let date = document.getElementById("Event-date");
+    let category = document.getElementById("event-categories");
+    let description = document.getElementById("event-description");
+    let allEventsContainer = document.getElementById("all-events-container");
+
+    function addEventFunction(event) {
+        event.preventDefault();
+
+        if (allEventsContainer.innerText === "No Event Yet") {
+            allEventsContainer.innerHTML = "";
+        }
+
+        let card = document.createElement("div");
+        card.innerHTML = `
+            <button>X</button>
+            <h4>${title.value}</h4>
+            <span>${date.value}</span>
+            <span>${category.value}</span>
+            <p>${description.value}</p>
+        `;
+
+        card.querySelector("button").addEventListener("click", () => {
+            card.remove();
+        });
+
+        allEventsContainer.append(card);
+        form.reset();
+    }
+
+    form.addEventListener("submit", addEventFunction);
+</script>
+<style>
+    * {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 30px;
+    background: #4fb3c6;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+}
+
+body > div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#main-event-add-container {
+    width: 300px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    margin-right: 25px;
+}
+
+#main-event-add-container h3 {
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 7px;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+}
+
+button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #5a8dee;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+#main-event-add-container + div {
+    width: calc(100% - 360px);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+#main-event-add-container + div h3 {
+    margin-bottom: 10px;
+}
+
+#clear-event-btn {
+    background: #ff6b6b;
+    margin-right: 8px;
+}
+
+#add-simple-btn {
+    background: #6bcf6b;
+    color: black;
+}
+
+#all-events-container {
+    margin-top: 15px;
+    padding: 12px;
+    background: #f3f3f3;
+    border-radius: 8px;
+    min-height: 120px;
+}
+
+#all-events-container div {
+    background: white;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    position: relative;
+}
+
+#all-events-container h4 {
+    margin-bottom: 5px;
+}
+
+#all-events-container span {
+    font-size: 0.75rem;
+    color: #666;
+    margin-right: 6px;
+}
+
+#all-events-container p {
+    font-size: 0.85rem;
+    margin-top: 6px;
+}
+
+#all-events-container button {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: #e74c3c;
+    border-radius: 50%;
+    padding: 3px 7px;
+    font-size: 0.7rem;
+}
+
+</style>
+</body>
+</html>
